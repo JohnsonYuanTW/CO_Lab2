@@ -13,8 +13,8 @@ module ALU_1bit( result, carryOut, a, b, invertA, invertB, operation, carryIn, l
   
   /*your code here*/ 
   wire w1, w2, w3, w4, w5; 
-  assign w1 = invertA ? (!a) : a; 
-  assign w2 = invertB ? (!b) : b; 
+  assign w1 = invertA ? (~a) : a; 
+  assign w2 = invertB ? (~b) : b; 
 
   or o1(w3, w1, w2); 
   and a1(w4, w1, w2); 

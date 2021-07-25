@@ -7,5 +7,6 @@ module Shifter( result, leftRight, shamt, sftSrc  );
   input wire[31:0] sftSrc ;
   
   /*your code here*/ 
-	
+	assign result = leftRight ? sftSrc << shamt : sftSrc >> shamt;  
+
 endmodule

@@ -53,6 +53,7 @@ module ALU( result, zero, overflow, aluSrc1, aluSrc2, invertA, invertB, operatio
 
   // The set value of ALU31. invA = 0, invB = 1, op = 10, 
   ALU_1bit alu31_set(w1,w2,aluSrc2[31],aluSrc2[31],1'b0,1'b1,2'b10,carryOut[30],1'b0);
+
   // when 
   assign overflow = carryOut[31]; 
   assign zero = result ? 1'b0 : 1'b1; 
