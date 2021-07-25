@@ -54,8 +54,18 @@ module ALU( result, zero, overflow, aluSrc1, aluSrc2, invertA, invertB, operatio
   // The set value of ALU31. invA = 0, invB = 1, op = 10, 
   ALU_1bit alu31_set(w1,w2,aluSrc2[31],aluSrc2[31],1'b0,1'b1,2'b10,carryOut[30],1'b0);
 
-  // when 
-  assign overflow = carryOut[31]; 
+  // assign overflow = carryOut[31]; // not working
+
+  /* 
+  Overflow detection: 
+  1. (-) + (-) => (+)
+  2. (+) + (+) => (-)
+  e.g. MSB overflow occurs when... 
+  0 + 0 + 1 (cin) = 0 (cout) 1 (res)
+  1 + 1 + 0 (cin) = 1 (cout) 0 (res)
+  when cin != cout -> xor
+  */
+  xor xor1(overflow, carryOut[30], carryOut[31]); 
   assign zero = result ? 1'b0 : 1'b1; 
   
 endmodule
