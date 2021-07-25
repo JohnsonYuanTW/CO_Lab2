@@ -11,7 +11,7 @@ module ALU( result, zero, overflow, aluSrc1, aluSrc2, invertA, invertB, operatio
   input wire[1:0] operation;
   
   /*your code here*/
-	wire [31:0] carryOut; 
+	inout wire [31:0] carryOut; 
   wire w1; // ALU 31 set -> ALU 0 less
   wire w2; // ALU 31_set carryout
 
