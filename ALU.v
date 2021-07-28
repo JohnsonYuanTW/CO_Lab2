@@ -14,6 +14,7 @@ module ALU( result, zero, overflow, aluSrc1, aluSrc2, invertA, invertB, operatio
 	inout wire [31:0] carryOut; 
   wire w1; // ALU 31 set -> ALU 0 less
   wire w2; // ALU 31_set carryout
+  wire w3; // overflow
 
   // ALU 0 to 31
   // ALU 0's less is from ALU31's set (w1)
@@ -52,7 +53,7 @@ module ALU( result, zero, overflow, aluSrc1, aluSrc2, invertA, invertB, operatio
   ALU_1bit alu31(result[31],carryOut[31],aluSrc1[31],aluSrc2[31],invertA,invertB,operation,carryOut[30],1'b0);
 
   // The set value of ALU31. invA = 0, invB = 1, op = 10, 
-  ALU_1bit alu31_set(w1,w2,aluSrc2[31],aluSrc2[31],1'b0,1'b1,2'b10,carryOut[30],1'b0);
+  ALU_1bit alu31_set(w1,w2,aluSrc1[31],aluSrc2[31],1'b0,1'b1,2'b10,carryOut[30],1'b0);
 
   // assign overflow = carryOut[31]; // not working
 
@@ -65,7 +66,9 @@ module ALU( result, zero, overflow, aluSrc1, aluSrc2, invertA, invertB, operatio
   1 + 1 + 0 (cin) = 1 (cout) 0 (res)
   when cin != cout -> xor
   */
-  xor xor1(overflow, carryOut[30], carryOut[31]); 
+  xor xor1(w3, carryOut[30], carryOut[31]); 
+  assign overflow = (operation == 2'b10) ? w3 : 1'b0; 
   assign zero = result ? 1'b0 : 1'b1; 
+
   
 endmodule
